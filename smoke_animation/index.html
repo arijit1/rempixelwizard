@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            margin-bottom: 100px;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .smokeCanvas {padding-bottom: 100px;}
+    </style>
+</head>
+
+<body>
+    <div class="smokeCanvas">
+        <canvas id="smokeCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("smokeCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = canvas.width / (2+Math.random());
+                this.y = canvas.height;
+                this.radius = Math.random() * 19 + 2;
+                this.speedY = -Math.random() * 5 - 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.color = `rgba(249, 174, 34, ${Math.random()})`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.radius > 0.2) this.radius -= 0.1;
+
+                this.draw();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function createParticles() {
+            const numParticles = 3;
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                if (particle.radius <= 0.2) {
+                    particles.splice(index, 1);
+                } else {
+                    particle.update();
+                }
+            });
+
+            createParticles();
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
