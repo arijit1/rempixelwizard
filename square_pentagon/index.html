@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .polygon{
+            width: 150px;
+            height: 150px;
+            background-color: rgb(0, 232, 253);
+            position: relative;
+            transform: rotate(0deg);
+            animation: changeShape 5s linear infinite
+            alternate,
+            colorChange 2s infinite alternate;
+        }
+        .polygon::before {
+            content:  "";
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            animation: rotateShape
+             5s linear infinite alternate;
+            }
+
+            @keyframes rotateShape {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(60deg);
+                }
+            }
+            @keyframes changeShape {
+                0%, 100% {
+                    clip-path: polygon(
+                        50%  0%, 100% 18%,
+                        82% 100%, 18% 100%,
+                        0% 18%
+                    );
+                }
+                50%{
+                    clip-path: polygon(
+                        50% 0%, 100% 0%,
+                        100% 100% , 0% 100%,
+                        0% 0%
+                    );
+                }
+            }
+            @keyframes colorChange {
+                0%{
+                    background-color: rgba(0, 255, 255, 0.489);
+                }
+                25% {
+                    background-color: rgba(0, 255, 255, 0.641);
+                }
+                50%{
+                    background-color: rgba(0, 255, 247, 0.796);
+                }
+                100%{
+                    background-color: aqua;
+                }
+            }
+    </style>
+</head>
+<body>
+    <div class="polygon"></div>
+</body>
+</html>
