@@ -1,0 +1,34 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.parallax-container {
+    height: 100vh;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+.bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, -200vh, 0);
+    }
+}
